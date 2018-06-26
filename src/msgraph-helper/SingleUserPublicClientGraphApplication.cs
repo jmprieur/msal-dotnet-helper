@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graph;
 using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 
 namespace Microsoft.Graph.Helpers
@@ -48,6 +49,25 @@ namespace Microsoft.Graph.Helpers
         private SingleUserPublicClientApplicationAuthenticationProvider authenticationProvider;
 
         /// <summary>
+        /// Event firing when interaction is required and the app does not allow the authentication
+        /// dialog to popup when it decides
+        /// </summary>
+        /// <remarks>
+        /// If, as an app developer you mind about having authentication dialogs firing
+        /// when the application requires it, you can subscribe to the InteractionRequired
+        /// event, and update the UI to notify the user that interaction is required (for instance
+        /// by displaying the icon of a key). Then, the user can trigger the authentication when s/he
+        /// wishes and your application will call <see cref="AuthenticateRequestAsync"/> 
+        /// or <see cref="AuthenticateClientAsync"/> accepting the interaction (passing a boolean set to <c>true</c>
+        /// as the second parameter
+        /// </remarks>
+        public event EventHandler InteractionRequired
+        {
+            add { authenticationProvider.InteractionRequired += value;  }
+            remove { authenticationProvider.InteractionRequired -= value; }
+        }
+
+        /// <summary>
         /// Sign out the user
         /// </summary>
         public void SignOut()
@@ -73,5 +93,22 @@ namespace Microsoft.Graph.Helpers
                 return authenticationProvider.Scopes;
             }
         }
+
+        public AcceptInteraction AcceptInteraction
+        {
+            get
+            {
+                return acceptInteraction;
+            }
+
+            set
+            {
+                acceptInteraction = value;
+                authenticationProvider.AcceptInteraction = value;
+            }
+        }
+        private AcceptInteraction acceptInteraction;
+
+
     }
 }

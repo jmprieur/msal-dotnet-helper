@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp-with-interactive
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp-querying-msgraph-with-graphsdk", "samples\graph\ConsoleApp-querying-msgraph-with-graphsdk\ConsoleApp-querying-msgraph-with-graphsdk.csproj", "{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfAppCallingGraph", "WpfAppCallingGraph\WpfAppCallingGraph.csproj", "{346F02B4-173D-4F9A-8056-6BA2F2413FA2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Release|Any CPU.Build.0 = Release|Any CPU
+		{346F02B4-173D-4F9A-8056-6BA2F2413FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{346F02B4-173D-4F9A-8056-6BA2F2413FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{346F02B4-173D-4F9A-8056-6BA2F2413FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{346F02B4-173D-4F9A-8056-6BA2F2413FA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +65,7 @@ Global
 		{334AE1AB-0762-42E7-952D-98B604D785C5} = {CDF19EFB-D63F-4BC3-B86D-97DC89BACED1}
 		{2969294D-4B89-4F09-B3A1-64640AF256ED} = {CDF19EFB-D63F-4BC3-B86D-97DC89BACED1}
 		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738} = {C17B700E-F9B8-4EC3-854D-9A7C99460990}
+		{346F02B4-173D-4F9A-8056-6BA2F2413FA2} = {C17B700E-F9B8-4EC3-854D-9A7C99460990}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D90183F4-C4D5-4553-B229-D1D42D2ADDF6}

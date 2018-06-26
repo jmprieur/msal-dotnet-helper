@@ -11,11 +11,6 @@ namespace Microsoft.Identity.Client.Helpers
     public class SingleUserPublicClientApplication
     {
         /// <summary>
-        /// List of Scopes that the application requests 
-        /// </summary>
-        public List<string> Scopes = new List<string>();
-
-        /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="clientId">Client ID (application ID) of the application</param>
@@ -39,6 +34,26 @@ namespace Microsoft.Identity.Client.Helpers
                 app = new PublicClientApplication(clientId, "https://login.microsoftonline.com/common/", tokenCache);
             }
         }
+
+        /// <summary>
+        /// List of Scopes that the application requests 
+        /// </summary>
+        public List<string> Scopes { get; } = new List<string>();
+
+        /// <summary>
+        /// Event firing when interaction is required and the app does not allow the authentication
+        /// dialog to popup when it decides
+        /// </summary>
+        /// <remarks>
+        /// If, as an app developer you mind about having authentication dialogs firing
+        /// when the application requires it, you can subscribe to the InteractionRequired
+        /// event, and update the UI to notify the user that interaction is required (for instance
+        /// by displaying the icon of a key). Then, the user can trigger the authentication when s/he
+        /// wishes and your application will call <see cref="AuthenticateRequestAsync"/> 
+        /// or <see cref="AuthenticateClientAsync"/> accepting the interaction (passing a boolean set to <c>true</c>
+        /// as the second parameter
+        /// </remarks>
+        public event EventHandler InteractionRequired;
 
         /// <summary>
         /// Signs the user out
@@ -72,13 +87,15 @@ namespace Microsoft.Identity.Client.Helpers
         }
 
         /// <summary>
-        /// Adds a token to the HttpRequestMessage. Interaction happens if needed
+        /// Adds a token to the HttpRequestMessage. Interaction happens if needed except if the application
+        /// has subscribed to the InteractionRequired event
         /// </summary>
-        /// <param name="request">Http request</param>
+        /// <param name="request">Http request message on which to setup the authorization header</param>
         /// <returns></returns>
-        public async Task<AuthenticationResult> AuthenticateRequestAsync(HttpRequestMessage request)
+        public async Task<AuthenticationResult> AuthenticateRequestAsync(HttpRequestMessage request, bool? doInteraction = null)
         {
-            AuthenticationResult result = await AcquireTokenForScopesAsync();
+            bool canDoInteraction = CanDoInteraction(doInteraction);
+            AuthenticationResult result = await AcquireTokenForScopesAsync(canDoInteraction);
 
             if (result != null)
             {
@@ -88,13 +105,26 @@ namespace Microsoft.Identity.Client.Helpers
         }
 
         /// <summary>
-        /// Adds a token to the HttpRequestMessage. Interaction happens if needed
+        /// Is the framework authorized to do a user interaction right now.
         /// </summary>
-        /// <param name="client">Http client</param>
-        /// <returns>The authentication result</returns>
-        public async Task<AuthenticationResult> AuthenticateClientAsync(HttpClient client)
+        /// <param name="doInteraction"></param>
+        /// <returns></returns>
+        private bool CanDoInteraction(bool? doInteraction)
         {
-            AuthenticationResult result = await AcquireTokenForScopesAsync();
+            return !doInteraction.HasValue && !InteractionRequired.GetInvocationList().Any()
+                                     || doInteraction.HasValue && doInteraction.Value;
+        }
+
+        /// <summary>
+        /// Adds a token to the HttpRequestMessage. Interaction happens if needed except if the application
+        /// has subscribed to the InteractionRequired event
+        /// </summary>
+        /// <param name="client">Http client on which to setup the default authorization header</param>
+        /// <returns>The authentication result</returns>
+        public async Task<AuthenticationResult> AuthenticateClientAsync(HttpClient client, bool? doInteraction = null)
+        {
+            bool canDoInteraction = CanDoInteraction(doInteraction);
+            AuthenticationResult result = await AcquireTokenForScopesAsync(canDoInteraction);
 
             if (result != null)
             {
@@ -111,7 +141,7 @@ namespace Microsoft.Identity.Client.Helpers
         /// </list>
         /// </summary>
         /// <returns></returns>
-        private async Task<AuthenticationResult> AcquireTokenForScopesAsync()
+        private async Task<AuthenticationResult> AcquireTokenForScopesAsync(bool acceptAuthentication)
         {
             bool needInteractionAPriori = !app.Users.Any();
             AuthenticationResult result = null;
@@ -124,7 +154,14 @@ namespace Microsoft.Identity.Client.Helpers
                 }
                 catch (MsalServiceException msalServiceException)
                 {
-                    result = await AcquireTokenForClaimChallengeAsync(msalServiceException);
+                    if (acceptAuthentication)
+                    {
+                        result = await AcquireTokenForClaimChallengeAsync(msalServiceException);
+                    }
+                    else
+                    {
+                        InteractionRequired(this, EventArgs.Empty);
+                    }
                 }
                 catch (MsalException msalException)
                 {
@@ -132,12 +169,11 @@ namespace Microsoft.Identity.Client.Helpers
                     {
                         try
                         {
-                            result = await app.AcquireTokenAsync(Scopes);
-
+                            result = await InteractWithUsersOrNotifyInteractionRequiredAsync(acceptAuthentication);
                         }
-                        catch (Exception ex2)
+                        catch (Exception ex)
                         {
-                            string message = ex2.Message;
+                            string message = ex.Message;
                             throw;
                         }
                     }
@@ -145,9 +181,31 @@ namespace Microsoft.Identity.Client.Helpers
             }
             else
             {
-                result = await app.AcquireTokenAsync(Scopes);
+                try
+                {
+                    result = await InteractWithUsersOrNotifyInteractionRequiredAsync(acceptAuthentication);
+                }
+                catch (Exception ex2)
+                {
+                    string message = ex2.Message;
+                    throw;
+                }
             }
 
+            return result;
+        }
+
+        private async Task<AuthenticationResult> InteractWithUsersOrNotifyInteractionRequiredAsync(bool acceptAuthentication)
+        {
+            AuthenticationResult result = null;
+            if (acceptAuthentication)
+            {
+                result = await app.AcquireTokenAsync(Scopes);
+            }
+            else
+            {
+                InteractionRequired(this, EventArgs.Empty);
+            }
             return result;
         }
 
