@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Package helping developers adding Microsoft Graph, in some simple scenario. This package leverages MSAL.NET which covers all the scenarios, and the Microsoft Graph SDK</Description>
+    <Copyright>Microsoft</Copyright>
+    <Version>1.0.0-preview</Version>
+    <RootNamespace>Microsoft.Graph.Helpers</RootNamespace>
+    <AssemblyName>Microsoft.Graph.Helpers</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Graph" Version="1.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\msal-dotnet-helper\Microsoft.Identity.Client.Helpers.csproj" />
+  </ItemGroup>
+
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(TargetDir)\Microsoft.Identity.Client.Helpers.1.0.0-preview.nupkg $(SolutionDir)\localNuGet" />
+  </Target>-->
+</Project>

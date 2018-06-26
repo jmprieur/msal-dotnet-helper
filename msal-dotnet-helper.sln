@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9593A174-0AB5-41B9-AB31-200740EEB582}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{43023D7E-4090-4E9B-B64E-DF58E892DE6E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "auth", "auth", "{CDF19EFB-D63F-4BC3-B86D-97DC89BACED1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Identity.Client.Helpers", "src\msal-dotnet-helper\Microsoft.Identity.Client.Helpers.csproj", "{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Microsoft.Graph.Helpers", "src\msgraph-helper\Microsoft.Graph.Helpers.csproj", "{7C67157B-280A-4680-A18E-CFBD6CE2F950}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "graph", "graph", "{C17B700E-F9B8-4EC3-854D-9A7C99460990}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppUsingGraphSdkWithAuthentication", "samples\auth\ConsoleAppUsingGraphSdkWithAuthentication\ConsoleAppUsingGraphSdkWithAuthentication.csproj", "{334AE1AB-0762-42E7-952D-98B604D785C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp-with-interactive-authentication", "samples\auth\ConsoleApp-with-interactive-authentication\ConsoleApp-with-interactive-authentication.csproj", "{2969294D-4B89-4F09-B3A1-64640AF256ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp-querying-msgraph-with-graphsdk", "samples\graph\ConsoleApp-querying-msgraph-with-graphsdk\ConsoleApp-querying-msgraph-with-graphsdk.csproj", "{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{334AE1AB-0762-42E7-952D-98B604D785C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{334AE1AB-0762-42E7-952D-98B604D785C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{334AE1AB-0762-42E7-952D-98B604D785C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{334AE1AB-0762-42E7-952D-98B604D785C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2969294D-4B89-4F09-B3A1-64640AF256ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2969294D-4B89-4F09-B3A1-64640AF256ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2969294D-4B89-4F09-B3A1-64640AF256ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2969294D-4B89-4F09-B3A1-64640AF256ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CDF19EFB-D63F-4BC3-B86D-97DC89BACED1} = {43023D7E-4090-4E9B-B64E-DF58E892DE6E}
+		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D} = {9593A174-0AB5-41B9-AB31-200740EEB582}
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950} = {9593A174-0AB5-41B9-AB31-200740EEB582}
+		{C17B700E-F9B8-4EC3-854D-9A7C99460990} = {43023D7E-4090-4E9B-B64E-DF58E892DE6E}
+		{334AE1AB-0762-42E7-952D-98B604D785C5} = {CDF19EFB-D63F-4BC3-B86D-97DC89BACED1}
+		{2969294D-4B89-4F09-B3A1-64640AF256ED} = {CDF19EFB-D63F-4BC3-B86D-97DC89BACED1}
+		{B18E44E2-3B43-4A3D-BAC8-61D9C091C738} = {C17B700E-F9B8-4EC3-854D-9A7C99460990}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D90183F4-C4D5-4553-B229-D1D42D2ADDF6}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net45;netstandard2.0</TargetFrameworks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>Package helping developers adding authentication to their application using Azure AD, in some simple scenario. This package leverages MSAL.NET which covers all the scenarios</Description>
+    <Copyright>Microsoft</Copyright>
+    <Version>1.0.0-preview</Version>
+    <RootNamespace>Microsoft.Identity.Client.Helpers</RootNamespace>
+    <AssemblyName>Microsoft.Identity.Client.Helpers</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Identity.Client" Version="1.1.4-preview0002" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Security.Cryptography.ProtectedData">
+      <Version>4.5.0</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+    <Reference Include="System.Security" />
+  </ItemGroup>
+
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(TargetDir)\msal-dotnet-helper.1.0.0-preview.nupkg&quot; &quot;$(SolutionDir)\localNuGet&quot;" />
+  </Target>-->
+
+</Project>
