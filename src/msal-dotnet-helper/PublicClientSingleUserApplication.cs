@@ -111,8 +111,16 @@ namespace Microsoft.Identity.Client.Helpers
         /// <returns></returns>
         private bool CanDoInteraction(bool? doInteraction)
         {
-            return !doInteraction.HasValue && !InteractionRequired.GetInvocationList().Any()
+            return !doInteraction.HasValue && !InteractionRequiredAsSubscribers
                                      || doInteraction.HasValue && doInteraction.Value;
+        }
+
+        protected bool InteractionRequiredAsSubscribers
+        {
+            get
+            {
+                return InteractionRequired!=null && InteractionRequired.GetInvocationList().Any();
+            }
         }
 
         /// <summary>

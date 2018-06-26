@@ -26,7 +26,7 @@ namespace WpfAppCallingGraph
             graphServiceClient.InteractionRequired += GraphServiceClient_InteractionRequired;
         }
 
-        private async void Window_Activated(object sender, EventArgs e)
+        private async void Window_Initialized(object sender, EventArgs e)
         {
             UpdateUI();
 
@@ -91,5 +91,7 @@ namespace WpfAppCallingGraph
             graphServiceClient.AcceptInteraction = AcceptInteraction.Once;
             await GetPictureAsync();
         }
+
+
     }
 }

@@ -24,7 +24,7 @@ namespace Microsoft.Graph.Helpers
 
         Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)
         {
-            Task result = base.AuthenticateRequestAsync(request, AcceptInteraction!=AcceptInteraction.None);
+            Task result = base.AuthenticateRequestAsync(request, !InteractionRequiredAsSubscribers || AcceptInteraction != AcceptInteraction.None);
             if (AcceptInteraction == AcceptInteraction.Once)
             {
                 AcceptInteraction = AcceptInteraction.None;
