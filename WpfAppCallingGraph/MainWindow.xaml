@@ -17,8 +17,8 @@
 
         <StackPanel Margin="2 2 2 2" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
             <Label Name="user">No user is signed-in</Label>
-            <Button Name="credentialRequired"  Click="CredentialRequired_Click">
-                <Image  Width="20" Height="20" Source="key.jpg"></Image>
+            <Button Name="credentialRequired" Click="CredentialRequired_Click" Visibility="Hidden">
+                <Image Width="20" Height="20" Source="pack://application:,,/key.jpg" ></Image>
             </Button>
             <Button Name="signInSignOut" Click="SignInSignOut_Click">Get picture</Button>
         </StackPanel>
