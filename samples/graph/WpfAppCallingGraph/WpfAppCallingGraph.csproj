@@ -125,11 +125,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\msal-dotnet-helper\Microsoft.Identity.Client.Helpers.csproj">
+    <ProjectReference Include="..\..\..\src\msal-dotnet-helper\Microsoft.Identity.Client.Helpers.csproj">
       <Project>{aa60ec04-f410-4c49-9cbc-4d20c0c74d3d}</Project>
       <Name>Microsoft.Identity.Client.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\msgraph-helper\Microsoft.Graph.Helpers.csproj">
+    <ProjectReference Include="..\..\..\src\msgraph-helper\Microsoft.Graph.Helpers.csproj">
       <Project>{7c67157b-280a-4680-a18e-cfbd6ce2f950}</Project>
       <Name>Microsoft.Graph.Helpers</Name>
     </ProjectReference>
