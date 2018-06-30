@@ -13,6 +13,8 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,13 +37,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Graph, Version=1.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Graph.1.9.0\lib\net45\Microsoft.Graph.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Graph.1.9.0\lib\net45\Microsoft.Graph.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Graph.Core, Version=1.9.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Graph.Core.1.9.0\lib\net45\Microsoft.Graph.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Graph.Core.1.9.0\lib\net45\Microsoft.Graph.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Graph.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Graph.Helpers.1.0.0-preview\lib\net45\Microsoft.Graph.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Identity.Client, Version=1.1.4.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Identity.Client.1.1.4-preview0002\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.Identity.Client.1.1.4-preview0002\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Identity.Client.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Identity.Client.Helpers.1.0.0-preview\lib\net45\Microsoft.Identity.Client.Helpers.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -53,6 +61,7 @@
     <Reference Include="System.Net.Http, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Net.Http.4.3.1\lib\net46\System.Net.Http.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
     </Reference>
@@ -125,22 +134,19 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\msal-dotnet-helper\Microsoft.Identity.Client.Helpers.csproj">
-      <Project>{aa60ec04-f410-4c49-9cbc-4d20c0c74d3d}</Project>
-      <Name>Microsoft.Identity.Client.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\msgraph-helper\Microsoft.Graph.Helpers.csproj">
-      <Project>{7c67157b-280a-4680-a18e-cfbd6ce2f950}</Project>
-      <Name>Microsoft.Graph.Helpers</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="key.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\..\packages\AsyncUsageAnalyzers.1.0.0-alpha003\analyzers\dotnet\AsyncUsageAnalyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\..\packages\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets" Condition="Exists('..\..\..\packages\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\Microsoft.DotNet.Analyzers.Compatibility.0.2.12-alpha\build\Microsoft.DotNet.Analyzers.Compatibility.targets'))" />
+  </Target>
 </Project>
