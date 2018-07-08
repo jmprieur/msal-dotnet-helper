@@ -2,10 +2,7 @@
 using Microsoft.Identity.Client.Helpers;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ConsoleApp_with_interactive_authentication
