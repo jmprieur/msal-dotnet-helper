@@ -1,0 +1,22 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<ItemGroup>
+<ProjectFiles Include="**\*csproj"/>
+</ItemGroup>
+
+<Target Name="build">
+    <MSBuild Projects="..\src\dirs.proj" 
+             BuildInParallel="$(BuildInParallel)" 
+             SkipNonexistentProjects="$(SkipNonexistentProjects)" Targets="build" />
+    <MSBuild Projects="@(ProjectFiles)" 
+             BuildInParallel="$(BuildInParallel)" 
+             SkipNonexistentProjects="$(SkipNonexistentProjects)" Targets="restore" />
+    <MSBuild Projects="@(ProjectFiles)" 
+             BuildInParallel="$(BuildInParallel)" 
+             SkipNonexistentProjects="$(SkipNonexistentProjects)" Targets="build" />
+</Target>
+<Target Name="clean">
+    <MSBuild Projects="@(ProjectFiles)" 
+             BuildInParallel="$(BuildInParallel)" 
+             SkipNonexistentProjects="$(SkipNonexistentProjects)" Targets="clean" />
+</Target>
+</Project>

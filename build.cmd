@@ -1,0 +1,2 @@
+msbuild src
+msbuild samples
