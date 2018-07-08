@@ -1,8 +1,9 @@
 # msal-and-msgraph-dotnet-helper
+
 Experimental libraries aiming at helping developers getting up to speed quicker at using MSAL.NET in some simple scenarios. This repo contains two libraries:
 
-- [Microsoft.Graph.Helper](#Microsoft_Graph_Helper) which is a helper library for the MIcrosoft Graph .NET SDK
-- [Microsoft.Identity.Client.Helper](Microsoft_Identity_Client_Helper) which is a helper library for MSAL.NET.
+- [Microsoft.Graph.Helper](mMicrosoft-graph-helper) which is a helper library for the MIcrosoft Graph .NET SDK
+- [Microsoft.Identity.Client.Helper](microsoft-identity-client-helper) which is a helper library for MSAL.NET.
 
 ## Microsoft Graph Helper
 
@@ -20,9 +21,9 @@ To try the library you need to:
 1. Add the Microsoft.Graph.helpers nuget package
 1. Register your application with the Azure portal (as you would do anyway)
 1. Instanciate a `SingleUserPublicClientGraphApplication`passing the application Id (client Id) of your application. Let's assure that this instance is in a variable named `graphServiceClient`
-1. Each time you want to call the Graph, add the scope you need by 
+1. Each time you want to call the Graph, add the scope you need by:
 
-   ```CSharp 
+   ```CSharp
    graphServiceClient.Scopes.Add("scope");
    ```
 
@@ -76,14 +77,13 @@ namespace ConsoleApp_querying_msgraph_with_graphsdk
 
 ### More variations
 
-It's also possible to let the application developer control when the interactions happen with the user. For this, the application developer needs to subscribe to the 
+It's also possible to let the application developer control when the interactions happen with the user. For this, the application developer needs to subscribe to the `InteractionRequired` event on the `SingleUserPublicClientGraphApplication` instance:
 
 ```CSharp
             graphServiceClient.InteractionRequired += GraphServiceClient_InteractionRequired;
 ```
 
 the `GraphServiceClient_InteractionRequired` will need to update the UI to tell the user that some interaction is required (such as a need to sign-in).
-
 
 ## The authentication helper
 
@@ -113,10 +113,10 @@ To use it:
      await application.AuthenticateClientAsync(client);
      ```
 
-    - call your Web API using the HttpClient, or HttpRequest:
-      ```CSharp
+   - call your Web API using the HttpClient, or HttpRequest:
+     ```CSharp
       string json = await client.GetStringAsync("https://graph.microsoft.com/v1.0/me");
-      ```
+     ```
 
 Here is the code, which, in addition, shows the Displayable Id of the authenticated user.
 
@@ -162,8 +162,9 @@ namespace ConsoleApp_with_interactive_authentication
 ### Samples
 
 This repository contains 4 samples:
-Sample | Description
------- | ------------
+
+Sample                                          | Description
+----------------------------------------------- | -----------
 auth\ConsoleApp-with-interactive-authentication | Simple console application which queries the Microsoft Graph through its REST API. This illustrates the MSAL helper (Microsoft.Identity.Client.Helpers), and is easily transposable to call your own Web API.
 auth\ConsoleAppUsingGraphSdkWithAuthentication | Similar sample, but this time using the .NET Microsoft Graph SDK. This illustrates the notion of `SingleUserPublicClientApplicationAuthenticationProvider` which manages the authentication part. Note unless you really want to understand about authentication, you might rather look at the two following samples (which leverage the Microsoft.Graph.Helper and abstract out authentication)
 graph\ConsoleApp-querying-msgraph-with-graphsdk | Simple console application using the `SingleUserPublicClientApplication` to query the graph (Me endpoint, calendar and last email)
