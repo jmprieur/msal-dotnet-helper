@@ -38,6 +38,7 @@ namespace Microsoft.Identity.Client.Helpers
         /// <summary>
         /// List of Scopes that the application requests 
         /// </summary>
+        // [bogavril] You should expose this through an interface, probably ICollection
         public List<string> Scopes { get; } = new List<string>();
 
         /// <summary>
@@ -54,14 +55,29 @@ namespace Microsoft.Identity.Client.Helpers
         /// as the second parameter
         /// </remarks>
         public event EventHandler InteractionRequired;
+        // [bogavril] Hmm, do you think an event is better than an exception? I suppose it is a bit more 
+        // discoverable. But a novice developer might forget to add a handler, in which case the app would fail silently. 
+        // 
+
+        // [bogavril] How about a BeforeInteraction event as well? This would allow app developers to 
+        // intervene and provide some help message to the user before the user is taken to the web view,
+        // e.g. "You will now be asked to authenticate and provide access. The app needs to access your files
+        // in order to get email, please consent to this"
+        // I have seen this quite a lot on Android apps. 
 
         /// <summary>
         /// Signs the user out
         /// </summary>
         public void SignOut()
         {
+            // [bogavril] this "pattern" of signing out is subtly wrong because invoking app.get_Users 
+            // performs a cache read. If the cache shared with other apps, a user may be inserted 
+            // or removed between line 71 and line 74 :)
+            // My proposal is to use a getter GetUsers() instead of a property (MSAL change).
+            // As for the pattern, it's better to use a for loop.
             while (app.Users.Any())
             {
+                // [bogavril] This signs aout all the users, not just the current one - is this expected? 
                 SignOut(app.Users.FirstOrDefault());
             }
         }
@@ -92,6 +108,8 @@ namespace Microsoft.Identity.Client.Helpers
         /// </summary>
         /// <param name="request">Http request message on which to setup the authorization header</param>
         /// <returns></returns>
+        // [bogavril] I find it difficult to understand the tri-state doInteraction (and tri-states in general). 
+        // Could this not be solved with 2 states ? If you really need 3 states, consider using an enum.
         public async Task<AuthenticationResult> AuthenticateRequestAsync(HttpRequestMessage request, bool? doInteraction = null)
         {
             bool canDoInteraction = CanDoInteraction(doInteraction);
@@ -135,7 +153,7 @@ namespace Microsoft.Identity.Client.Helpers
             AuthenticationResult result = await AcquireTokenForScopesAsync(canDoInteraction);
 
             if (result != null)
-            {
+            { 
                 client.DefaultRequestHeaders.Add("Authorization", $"bearer {result.AccessToken}");
             }
             return result;

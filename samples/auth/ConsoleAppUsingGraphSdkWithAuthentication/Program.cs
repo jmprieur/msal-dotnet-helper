@@ -18,7 +18,7 @@ namespace ConsoleAppUsingGraphSdkWithAuthentication
         private static async Task DisplayInformationAsync()
         {
             // Instanciate the service for a public client application
-            string clientId = "145cec56-05b2-4764-a41c-b77466387462";
+            string clientId = "98fbd1bd-db99-42aa-a359-5412fd15e519";
             SingleUserPublicClientApplicationAuthenticationProvider authenticationProvider = new SingleUserPublicClientApplicationAuthenticationProvider(clientId);
 
             GraphServiceClient graphServiceClient = new GraphServiceClient(authenticationProvider);
