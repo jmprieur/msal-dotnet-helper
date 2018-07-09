@@ -1,4 +1,4 @@
-# msal-and-msgraph-dotnet-helper
+# Helpers for MSAL.NET and Microsoft Graph .NET SDK
 
 Experimental libraries aiming at helping developers getting up to speed quicker at using MSAL.NET in some simple scenarios. This repo contains two libraries:
 
