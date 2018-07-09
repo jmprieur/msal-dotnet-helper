@@ -2,8 +2,8 @@
 
 Experimental libraries aiming at helping developers getting up to speed quicker at using MSAL.NET in some simple scenarios. This repo contains two libraries:
 
-- [Microsoft.Graph.Helper](mMicrosoft-graph-helper) which is a helper library for the MIcrosoft Graph .NET SDK
-- [Microsoft.Identity.Client.Helper](microsoft-identity-client-helper) which is a helper library for MSAL.NET.
+- [Microsoft.Graph.Helper](#microsoft-graph-helper) which is a helper library for the MIcrosoft Graph .NET SDK
+- [Microsoft.Identity.Client.Helper](#the-authentication-helper) which is a helper library for MSAL.NET.
 
 ## Microsoft Graph Helper
 
