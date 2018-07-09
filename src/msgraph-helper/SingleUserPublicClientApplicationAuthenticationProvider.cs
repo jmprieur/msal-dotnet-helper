@@ -5,6 +5,10 @@ using Microsoft.Identity.Client.Helpers;
 
 namespace Microsoft.Graph.Helpers
 {
+    // [bogavril]: I particularly like inheritance here, it's confusing to users what they should use - the derived class or the base class?
+    // Instead, I would use composition - rename the SingleUserPublicClientApplicationAuthenticationProvider to SingleUserPublicClientApplicationAuthenticationAdapter
+    // and make it clear what you wish to expose to users. 
+    // Note: this is not very important as you just want to prototype the API.
     public class SingleUserPublicClientApplicationAuthenticationProvider : SingleUserPublicClientApplication, IAuthenticationProvider
     {
         /// <summary>
@@ -27,11 +31,14 @@ namespace Microsoft.Graph.Helpers
             Task result = base.AuthenticateRequestAsync(request, !InteractionRequiredAsSubscribers || AcceptInteraction != AcceptInteraction.None);
             if (AcceptInteraction == AcceptInteraction.Once)
             {
+                // [bogavril] I would not 
                 AcceptInteraction = AcceptInteraction.None;
             }
             return result;
         }
 
+        // I would not allow a setter here. As a developer, I would not expect "settings" to change. Use a counter to count the 
+        // actual number of interactions.
         public AcceptInteraction AcceptInteraction { get; set; }
     }
 }

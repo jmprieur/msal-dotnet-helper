@@ -16,7 +16,7 @@ namespace ConsoleApp_with_interactive_authentication
 
         private static async Task DisplayIdCardAsync()
         {
-            string clientId = "145cec56-05b2-4764-a41c-b77466387462";
+            string clientId = "98fbd1bd-db99-42aa-a359-5412fd15e519";
             SingleUserPublicClientApplication application = new SingleUserPublicClientApplication(clientId);
 
             HttpClient client = new HttpClient();
