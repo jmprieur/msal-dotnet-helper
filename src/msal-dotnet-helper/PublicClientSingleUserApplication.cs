@@ -77,6 +77,7 @@ namespace Microsoft.Identity.Client.Helpers
             // As for the pattern, it's better to use a for loop.
             while (app.Users.Any())
             {
+                // [bogavril] This signs aout all the users, not just the current one - is this expected? 
                 SignOut(app.Users.FirstOrDefault());
             }
         }
