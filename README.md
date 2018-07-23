@@ -175,7 +175,7 @@ graph\WpfAppCallingGraph | WPF application letting the developer control when si
 #### SingleUserPublicClientApplication class
 The authentication helper is really one public class: `SingleUserPublicClientApplication` which takes care of everything.
 
-![class](https://user-images.githubusercontent.com/13203188/43017323-f8a2d8c4-8c55-11e8-9b01-8071ee4c4320.png)
+![image](https://user-images.githubusercontent.com/13203188/43077569-2782dad4-8e88-11e8-98f3-dbc1df8cde25.png)
 
 Its members are the following:
 
@@ -187,6 +187,7 @@ the constructor which takes two arguments:
 ##### Properties
 - `Scopes` is used to add or remove permissions scopes to get consent to call an API
 - `User` is the signed-in user
+- `Options` enables you to specify configuration options (for the moment the location of the token cache)
 
 ##### Authenticating an HttpClient or and HttpRequest to call a protected API
 
