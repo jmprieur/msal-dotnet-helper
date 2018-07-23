@@ -13,25 +13,20 @@ namespace Microsoft.Identity.Client.Helpers
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="clientId">Client ID (application ID) of the application</param>
-        /// <param name="authority">Authority. Optional. you might want to set it if you want to restrict signing to: 
-        /// <list type="bullet">
-        /// <item>only one tenant (in which case use https://login.microsoftonline.com/tenantId/ of
-        /// https://login.microsoftonline.com/domainName/</item>
-        /// <item>Work and School accounts only (in which case, use https://login.microsoftonline.com/organizations/ )</item>
-        /// <item>Microsoft personal accounts only (in which case, use https://login.microsoftonline.com/consumers/ )</item>
-        /// </list>
-        /// </param>
+        /// <param name="clientId">This is the string representation of a GUID which is the client ID (also named application ID)
+        /// of the application that you would have registered in the Azure portal</param>
+        /// <param name="authority">Optional. You might want to specify: which clouds will authenticate your users, or restrict the audience
+        /// of your application to a specific organization, any Azure AD directory, or Microsoft personal accounts only
         /// <remarks>A cache is token cache is provided</remarks>
-        public SingleUserPublicClientApplication(string clientId, string authority = null)
+        public SingleUserPublicClientApplication(string clientId, Authority authority = null)
         {
             if (authority != null)
             {
-                app = new PublicClientApplication(clientId, authority, tokenCache);
+                app = new PublicClientApplication(clientId, authority.ToString(), tokenCache);
             }
             else
             {
-                app = new PublicClientApplication(clientId, "https://login.microsoftonline.com/common/", tokenCache);
+                app = new PublicClientApplication(clientId, Authority.Default.ToString(), tokenCache);
             }
         }
 

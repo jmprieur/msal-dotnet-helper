@@ -11,16 +11,9 @@ namespace Microsoft.Graph.Helpers
         /// Constructor.
         /// </summary>
         /// <param name="clientId">Client ID (application ID) of the application</param>
-        /// <param name="authority">Authority. Optional. you might want to set it if you want to restrict signing to: 
-        /// <list type="bullet">
-        /// <item>only one tenant (in which case use https://login.microsoftonline.com/tenantId/ of
-        /// https://login.microsoftonline.com/domainName/</item>
-        /// <item>Work and School accounts only (in which case, use https://login.microsoftonline.com/organizations/ )</item>
-        /// <item>Microsoft personal accounts only (in which case, use https://login.microsoftonline.com/consumers/ )</item>
-        /// </list>
-        /// </param>
+        /// <param name="authority">Authority. Optional. you might want to set it if you want to restrict users signing-in to the 
         /// <remarks>A cache is token cache is provided</remarks>
-        public SingleUserPublicClientApplicationAuthenticationProvider(string clientId, string authority = null) : base(clientId, authority) { }
+        public SingleUserPublicClientApplicationAuthenticationProvider(string clientId, Authority authority = null) : base(clientId, authority) { }
 
         Task IAuthenticationProvider.AuthenticateRequestAsync(HttpRequestMessage request)
         {

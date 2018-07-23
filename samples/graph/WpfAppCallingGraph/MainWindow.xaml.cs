@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graph;
 using Microsoft.Graph.Helpers;
+using Microsoft.Identity.Client.Helpers;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,9 +14,9 @@ namespace WpfAppCallingGraph
     public partial class MainWindow : Window
     {
         const string clientId = "145cec56-05b2-4764-a41c-b77466387462";
-        SingleUserPublicClientGraphApplication graphServiceClient = new SingleUserPublicClientGraphApplication(clientId, 
-             "https://login.microsoftonline.com/organizations");
-
+        SingleUserPublicClientGraphApplication graphServiceClient 
+            = new SingleUserPublicClientGraphApplication(clientId, 
+                                                         new Authority(Audience.AcountsInAnyAzureAdDirectory));
 
         public MainWindow()
         {

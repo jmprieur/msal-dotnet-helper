@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Microsoft.Identity.Client.Helpers.SingleUserPublicClientApplication">
+    <Position X="1.25" Y="0.75" Width="7.25" />
+    <Members>
+      <Method Name="AcquireTokenForClaimChallengeAsync" Hidden="true" />
+      <Method Name="AcquireTokenForScopesAsync" Hidden="true" />
+      <Field Name="app" Hidden="true" />
+      <Method Name="CanDoInteraction" Hidden="true" />
+      <Property Name="InteractionRequiredAsSubscribers" Hidden="true" />
+      <Method Name="InteractWithUsersOrNotifyInteractionRequiredAsync" Hidden="true" />
+      <Method Name="SignOut" Hidden="true" />
+      <Field Name="tokenCache" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAABACAFgAAAACAAAAAAAAFAEAAAAAgAACEIAAAAAAA=</HashCode>
+      <FileName>PublicClientSingleUserApplication.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.Identity.Client.Helpers.Authority">
+    <Position X="1.25" Y="4.25" Width="5.5" />
+    <Members>
+      <Field Name="authority" Hidden="true" />
+      <Field Name="defaultAuthority" Hidden="true" />
+      <Method Name="GetAuthority" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAEABQAAAAAMAAAEAAAAMAAAAAAAQAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Authority.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Audience" />
+    </ShowAsAssociation>
+  </Class>
+  <Enum Name="Microsoft.Identity.Client.Helpers.Audience">
+    <Position X="8" Y="4.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAASAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Authority.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

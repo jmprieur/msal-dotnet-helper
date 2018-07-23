@@ -1,5 +1,6 @@
 ﻿using Microsoft.Graph;
 using Microsoft.Identity.Client;
+using Microsoft.Identity.Client.Helpers;
 using System;
 using System.Collections.Generic;
 
@@ -25,7 +26,7 @@ namespace Microsoft.Graph.Helpers
         /// <param name="msGraphBaseUrl">Optional base URL for the Microsoft Graph service. If you don't specify such a URL, the
         /// Microsoft Graph V1.0 will be used (https://graph.microsoft.com/v1.0). You might want to use this parameter to use another
         /// version of Microsoft graph (such as https://graph.microsoft.com/beta) </param>
-        public SingleUserPublicClientGraphApplication(string clientId, string authority = null, string msGraphBaseUrl = "https://graph.microsoft.com/v1.0") 
+        public SingleUserPublicClientGraphApplication(string clientId, Authority authority = null, string msGraphBaseUrl = "https://graph.microsoft.com/v1.0") 
             : this(msGraphBaseUrl, new SingleUserPublicClientApplicationAuthenticationProvider(clientId, authority), null)
         {
 
