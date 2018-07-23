@@ -172,42 +172,49 @@ graph\WpfAppCallingGraph | WPF application letting the developer control when si
 
 ### Conceptual documentation of the authentication helper
 
+#### SingleUserPublicClientApplication class
 The authentication helper is really one public class: `SingleUserPublicClientApplication` which takes care of everything.
 
 ![class](https://user-images.githubusercontent.com/13203188/43017323-f8a2d8c4-8c55-11e8-9b01-8071ee4c4320.png)
 
 Its members are the following:
 
-#### The constructor
+##### The constructor
 the constructor which takes two arguments:
 - `clientId` is the string representation of a GUID which is the client ID (also named application ID) of the application that you would have registered in the Azure portal
-- `authority` is an optional argument that can be set if you want to:
-   - control the cloud that will be used to authenticate your users. By default the authority will be the Azure public cloud ("https://login.microsoftonline.com/common") for any microsoft identity (Work and School account and personal Microsoft accounts). But you can also use another cloud such as a national cloud or a sovereign cloud.
-   - restrict the users to authorize. For instance to
-      - users in a single organization (a single tenant): https://login.microsoftonline.com/*tenantId*/ or  https://login.microsoftonline.com/*domainName*/
-      - Work and schools accounts only: https://login.microsoftonline.com/organizations/
-      - Microsoft personal accounts only: https://login.microsoftonline.com/consumers/
-
-#### Properties
+- `authority` is an optional argument that can be set if you want to restrict users that sign-in to the application to belong to certain clouds, or audiences (specific Azure AD directories, any Azure AD directories, personal accounts or not, Azure AD B2C directories)
+   
+##### Properties
 - `Scopes` is used to add or remove permissions scopes to get consent to call an API
 - `User` is the signed-in user
 
-#### Authenticating an HttpClient or and HttpRequest to call a protected API
+##### Authenticating an HttpClient or and HttpRequest to call a protected API
 
 Before calling a protected API, you need to authenticate the HttpClient or HttpRequest that will be used to make the call. To do this
 you can use one of the following methods that will manage for you the security tokens and the user interaction:
 - `AuthenticateClientAsync(HttpClient)`applies to an HttpClient
 - `AuthenticateRequestAsync(HttpClient)`applies to an HttpRequest
 
-#### Signing the user out
+##### Signing the user out
 
 The authentication helper maintains a token cache for the public client application, which will avoid forcing the user to
 resign-in next time s/he uses the application.
 You can sign the user out by calling `SignOut()`
 
-#### Controlling the user interaction
+##### Controlling the user interaction
 
 Optionally if you really want to control the user interaction, you can subscribe to the `InteractionRequired` event. you will be notified when a user interaction needs to happen to sign-in the user, or present a consent
+
+#### Advanced scenarios: restricting the users that sign-in
+
+The classes named `Authority` and `AzureADB2CAuthority` enable you to restrict the users that sign-in to your application.
+A number of constructors enble to specify:
+- the cloud to use (by default the Microsoft Azure public cloud)
+- the audience among: users of a specific Azure AD directory, users of any directory, Microsoft personal Accounts only, or any Microsoft identity
+
+![image](https://user-images.githubusercontent.com/13203188/43077229-306d53f0-8e87-11e8-882b-ec20fd7fd92b.png)
+
+The constructor of `AzureADB2CAuthority` also enables you to specify the AzureAD B2C policy to apply
 
 ## To build this repo
 
