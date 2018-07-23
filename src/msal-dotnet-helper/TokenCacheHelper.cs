@@ -54,7 +54,7 @@ namespace Microsoft.Identity.Client.Helpers
         /// <summary>
         /// Path to the token cache
         /// </summary>
-        public static readonly string CacheFilePath = System.Reflection.Assembly.GetExecutingAssembly().Location + ".msalcache.bin";
+        public static string CacheFilePath = System.Reflection.Assembly.GetEntryAssembly().Location + ".msalcache.bin";
 
         private static readonly object FileLock = new object();
 

@@ -31,6 +31,11 @@ namespace Microsoft.Identity.Client.Helpers
         }
 
         /// <summary>
+        /// Options to control the behavior of the helper
+        /// </summary>
+        public Options Options { get; } = new Options();
+
+        /// <summary>
         /// List of Scopes that the application requests 
         /// </summary>
         public List<string> Scopes { get; } = new List<string>();
@@ -236,6 +241,5 @@ namespace Microsoft.Identity.Client.Helpers
 
         // Make sure that we add it only in the case of .NET FW and .NET Core, not Xamarin / UWP
         TokenCache tokenCache = TokenCacheHelper.GetUserCache();
-
     }
 }
