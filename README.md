@@ -170,9 +170,44 @@ auth\ConsoleAppUsingGraphSdkWithAuthentication | Similar sample, but this time u
 graph\ConsoleApp-querying-msgraph-with-graphsdk | Simple console application using the `SingleUserPublicClientApplication` to query the graph (Me endpoint, calendar and last email)
 graph\WpfAppCallingGraph | WPF application letting the developer control when sign-in is required. An icon with a key is displayed when a user interaction is required.
 
-### Conceptual documentation
+### Conceptual documentation of the authentication helper
 
-TBD
+The authentication helper is really one public class: `SingleUserPublicClientApplication` which takes care of everything.
+
+![class](https://user-images.githubusercontent.com/13203188/43017323-f8a2d8c4-8c55-11e8-9b01-8071ee4c4320.png)
+
+Its members are the following:
+
+#### The constructor
+the constructor which takes two arguments:
+- `clientId` is the string representation of a GUID which is the client ID (also named application ID) of the application that you would have registered in the Azure portal
+- `authority` is an optional argument that can be set if you want to:
+   - control the cloud that will be used to authenticate your users. By default the authority will be the Azure public cloud ("https://login.microsoftonline.com/common") for any microsoft identity (Work and School account and personal Microsoft accounts). But you can also use another cloud such as a national cloud or a sovereign cloud.
+   - restrict the users to authorize. For instance to
+      - users in a single organization (a single tenant): https://login.microsoftonline.com/*tenantId*/ or  https://login.microsoftonline.com/*domainName*/
+      - Work and schools accounts only: https://login.microsoftonline.com/organizations/
+      - Microsoft personal accounts only: https://login.microsoftonline.com/consumers/
+
+#### Properties
+- `Scopes` is used to add or remove permissions scopes to get consent to call an API
+- `User` is the signed-in user
+
+#### Authenticating an HttpClient or and HttpRequest to call a protected API
+
+Before calling a protected API, you need to authenticate the HttpClient or HttpRequest that will be used to make the call. To do this
+you can use one of the following methods that will manage for you the security tokens and the user interaction:
+- `AuthenticateClientAsync(HttpClient)`applies to an HttpClient
+- `AuthenticateRequestAsync(HttpClient)`applies to an HttpRequest
+
+#### Signing the user out
+
+The authentication helper maintains a token cache for the public client application, which will avoid forcing the user to
+resign-in next time s/he uses the application.
+You can sign the user out by calling `SignOut()`
+
+#### Controlling the user interaction
+
+Optionally if you really want to control the user interaction, you can subscribe to the `InteractionRequired` event. you will be notified when a user interaction needs to happen to sign-in the user, or present a consent
 
 ## To build this repo
 
