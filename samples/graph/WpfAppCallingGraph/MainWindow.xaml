@@ -12,17 +12,22 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="2 2 2 2" Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <Label Name="user">No user is signed-in</Label>
-            <Button Name="credentialRequired" Click="CredentialRequired_Click" Visibility="Hidden">
+        <Button Grid.Row="0" Name="credentialRequired" Click="CredentialRequired_Click" Visibility="Hidden" Background="Yellow" Width="800">
+            <StackPanel Orientation="Horizontal">
                 <Image Width="20" Height="20" Source="pack://application:,,/key.jpg" ></Image>
-            </Button>
+                <TextBlock>Click here to sign-in first (demoes application controlling when user interaction happen)</TextBlock>
+            </StackPanel>
+        </Button>
+        <StackPanel Margin="2 2 2 2" Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+            <Label Name="user">No user is signed-in</Label>
+
             <Button Name="signInSignOut" Click="SignInSignOut_Click">Get picture</Button>
         </StackPanel>
 
-        <Image Name="image" Grid.Row="1" Grid.Column="1"></Image>
+        <Image Name="image" Grid.Row="2" Grid.Column="1"></Image>
     </Grid>
 </Window>

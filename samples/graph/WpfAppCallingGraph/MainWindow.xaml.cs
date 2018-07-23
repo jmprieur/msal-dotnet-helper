@@ -14,9 +14,7 @@ namespace WpfAppCallingGraph
     public partial class MainWindow : Window
     {
         const string clientId = "145cec56-05b2-4764-a41c-b77466387462";
-        SingleUserPublicClientGraphApplication graphServiceClient 
-            = new SingleUserPublicClientGraphApplication(clientId, 
-                                                         new Authority(Audience.AcountsInAnyAzureAdDirectory));
+        SingleUserPublicClientGraphApplication graphServiceClient;
 
         public MainWindow()
         {
@@ -24,11 +22,14 @@ namespace WpfAppCallingGraph
 
             // We want the user to control when to have interactions. The user will be notified when s/he needs
             // to sign-in, or consent for more
-            graphServiceClient.InteractionRequired += GraphServiceClient_InteractionRequired;
         }
 
         private async void Window_Initialized(object sender, EventArgs e)
         {
+            graphServiceClient = new SingleUserPublicClientGraphApplication(clientId,
+                                                new Authority(Audience.AcountsInAnyAzureAdDirectory));
+            graphServiceClient.InteractionRequired += GraphServiceClient_InteractionRequired;
+
             UpdateUI();
 
             // We don't await here. the picture will arrive when it arrives, that's fine
