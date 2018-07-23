@@ -162,7 +162,7 @@ namespace Microsoft.Identity.Client.Helpers
         }
         private static Authority defaultAuthority;
 
-        string authority;
+        protected string authority { get; set; }
 
         /// <summary>
         /// Get the format of the 
@@ -200,5 +200,10 @@ namespace Microsoft.Identity.Client.Helpers
         {
             return authority;
         }
+
+        /// <summary>
+        /// Is the authority whitelisted by the authentication library
+        /// </summary>
+        internal virtual bool IsWhiteListed { get { return true; } }
     }
 }

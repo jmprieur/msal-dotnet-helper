@@ -23,6 +23,7 @@ namespace Microsoft.Identity.Client.Helpers
             if (authority != null)
             {
                 app = new PublicClientApplication(clientId, authority.ToString(), tokenCache);
+                app.ValidateAuthority = authority.IsWhiteListed;
             }
             else
             {
