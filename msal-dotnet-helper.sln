@@ -18,6 +18,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppUsingGraphSdkWithAuthentication", "samples\auth\ConsoleAppUsingGraphSdkWithAuthentication\ConsoleAppUsingGraphSdkWithAuthentication.csproj", "{334AE1AB-0762-42E7-952D-98B604D785C5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AA60EC04-F410-4C49-9CBC-4D20C0C74D3D} = {AA60EC04-F410-4C49-9CBC-4D20C0C74D3D}
+		{7C67157B-280A-4680-A18E-CFBD6CE2F950} = {7C67157B-280A-4680-A18E-CFBD6CE2F950}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp-with-interactive-authentication", "samples\auth\ConsoleApp-with-interactive-authentication\ConsoleApp-with-interactive-authentication.csproj", "{2969294D-4B89-4F09-B3A1-64640AF256ED}"
