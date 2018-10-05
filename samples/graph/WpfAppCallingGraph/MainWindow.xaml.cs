@@ -30,22 +30,23 @@ namespace WpfAppCallingGraph
                                                 new Authority(Audience.AcountsInAnyAzureAdDirectory));
             graphServiceClient.InteractionRequired += GraphServiceClient_InteractionRequired;
 
-            UpdateUI();
+            await UpdateUI();
 
             // We don't await here. the picture will arrive when it arrives, that's fine
             await GetPictureAsync();
         }
 
-        private void UpdateUI()
+        private async Task UpdateUI()
         {
-            if (graphServiceClient.User == null)
+            var account = await graphServiceClient.GetUserAsync();
+            if (account == null)
             {
                 this.user.Content = "No user is signed-in";
                 signInSignOut.Content = "Get Picture";
             }
             else
             {
-                this.user.Content = graphServiceClient.User.DisplayableId;
+                this.user.Content = account.Username;
                 signInSignOut.Content = "Sign-Out";
             }
         }
@@ -60,7 +61,7 @@ namespace WpfAppCallingGraph
             string label = signInSignOut.Content as string;
             if (label == "Sign-Out")
             {
-                graphServiceClient.SignOut();
+                await graphServiceClient.SignOut();
                 signInSignOut.Content = "Get Picture";
                 image.Source = null;
             }
@@ -68,7 +69,7 @@ namespace WpfAppCallingGraph
             {
                 await GetPictureAsync();
             }
-            UpdateUI();
+            await UpdateUI();
         }
 
         private async Task GetPictureAsync()
@@ -85,7 +86,7 @@ namespace WpfAppCallingGraph
                 // this is expected in the case where an interaction is required and the application
                 // as subscribed to the InteractionRequiredEvent
             }
-            UpdateUI();
+            await UpdateUI();
         }
 
         private async void CredentialRequired_Click(object sender, RoutedEventArgs e)

@@ -23,7 +23,9 @@ namespace ConsoleApp_with_interactive_authentication
 
             application.Scopes.Add("User.Read");
             await application.AuthenticateClientAsync(client);
-            Console.WriteLine($"Hello {application.User.DisplayableId}");
+
+            var account = await application.GetAccountAsync();
+            Console.WriteLine($"Hello {account.Username}");
 
             string json = await client.GetStringAsync("https://graph.microsoft.com/v1.0/me");
             dynamic me = JsonConvert.DeserializeObject(json);

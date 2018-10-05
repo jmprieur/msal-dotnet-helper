@@ -3,6 +3,7 @@ using Microsoft.Identity.Client;
 using Microsoft.Identity.Client.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Microsoft.Graph.Helpers
 {
@@ -26,7 +27,7 @@ namespace Microsoft.Graph.Helpers
         /// <param name="msGraphBaseUrl">Optional base URL for the Microsoft Graph service. If you don't specify such a URL, the
         /// Microsoft Graph V1.0 will be used (https://graph.microsoft.com/v1.0). You might want to use this parameter to use another
         /// version of Microsoft graph (such as https://graph.microsoft.com/beta) </param>
-        public SingleUserPublicClientGraphApplication(string clientId, Authority authority = null, string msGraphBaseUrl = "https://graph.microsoft.com/v1.0") 
+        public SingleUserPublicClientGraphApplication(string clientId, Authority authority = null, string msGraphBaseUrl = "https://graph.microsoft.com/v1.0")
             : this(msGraphBaseUrl, new SingleUserPublicClientApplicationAuthenticationProvider(clientId, authority), null)
         {
 
@@ -64,27 +65,24 @@ namespace Microsoft.Graph.Helpers
         /// </remarks>
         public event EventHandler InteractionRequired
         {
-            add { authenticationProvider.InteractionRequired += value;  }
+            add { authenticationProvider.InteractionRequired += value; }
             remove { authenticationProvider.InteractionRequired -= value; }
         }
 
         /// <summary>
         /// Sign out the user
         /// </summary>
-        public void SignOut()
+        public async Task SignOut()
         {
-            authenticationProvider.SignOut();
+            await authenticationProvider.SignOut();
         }
 
         /// <summary>
         /// User signed-in with the application
         /// </summary>
-        public IUser User
+        public async Task<IAccount> GetUserAsync()
         {
-            get
-            {
-                return authenticationProvider.User;
-            }
+            return await authenticationProvider.GetAccountAsync();
         }
 
         public IList<string> Scopes

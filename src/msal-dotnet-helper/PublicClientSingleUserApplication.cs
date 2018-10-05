@@ -59,11 +59,13 @@ namespace Microsoft.Identity.Client.Helpers
         /// <summary>
         /// Signs the user out
         /// </summary>
-        public void SignOut()
+        public async Task SignOut()
         {
-            while (app.Users.Any())
+            var accounts = await app.GetAccountsAsync();
+            while (accounts.Any())
             {
-                SignOut(app.Users.FirstOrDefault());
+                await SignOut(accounts.FirstOrDefault());
+                accounts = await app.GetAccountsAsync();
             }
         }
 
@@ -71,20 +73,18 @@ namespace Microsoft.Identity.Client.Helpers
         /// Signs out a given user
         /// </summary>
         /// <param name="user"></param>
-        private void SignOut(IUser user)
+        private async Task SignOut(IAccount account)
         {
-            app.Remove(user);
+            await app.RemoveAsync(account);
         }
 
         /// <summary>
         /// User of the application
         /// </summary>
-        public IUser User
+        public async Task<IAccount> GetAccountAsync()
         {
-            get
-            {
-                return app.Users.FirstOrDefault();
-            }
+            var accounts = await app.GetAccountsAsync();
+            return accounts.FirstOrDefault();
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Microsoft.Identity.Client.Helpers
         {
             get
             {
-                return InteractionRequired!=null && InteractionRequired.GetInvocationList().Any();
+                return InteractionRequired != null && InteractionRequired.GetInvocationList().Any();
             }
         }
 
@@ -152,14 +152,15 @@ namespace Microsoft.Identity.Client.Helpers
         /// <returns></returns>
         private async Task<AuthenticationResult> AcquireTokenForScopesAsync(bool acceptAuthentication)
         {
-            bool needInteractionAPriori = !app.Users.Any();
+            var accounts = await app.GetAccountsAsync();
+            bool needInteractionAPriori = !accounts.Any();
             AuthenticationResult result = null;
 
             if (!needInteractionAPriori)
             {
                 try
                 {
-                    result = await app.AcquireTokenSilentAsync(Scopes, app.Users.FirstOrDefault());
+                    result = await app.AcquireTokenSilentAsync(Scopes, accounts.FirstOrDefault());
                 }
                 catch (MsalServiceException msalServiceException)
                 {
@@ -226,8 +227,9 @@ namespace Microsoft.Identity.Client.Helpers
             {
                 extraQueryParameters = $"claims={msalServiceException.Claims}";
             }
+            var accounts = await app.GetAccountsAsync();
             result = await app.AcquireTokenAsync(Scopes,
-                                                 app.Users.FirstOrDefault(),
+                                                 accounts.FirstOrDefault(),
                                                  new UIBehavior(),
                                                  extraQueryParameters);
 

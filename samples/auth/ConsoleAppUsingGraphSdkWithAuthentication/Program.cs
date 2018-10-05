@@ -40,7 +40,7 @@ namespace ConsoleAppUsingGraphSdkWithAuthentication
             var messages = await graphServiceClient.Me.MailFolders.Inbox.Messages.Request().GetAsync();
             Console.WriteLine("Your last email:");
             Console.WriteLine($"{messages.FirstOrDefault().Subject}");
-            authenticationProvider.SignOut();
+            await authenticationProvider.SignOut();
         }
     }
 }

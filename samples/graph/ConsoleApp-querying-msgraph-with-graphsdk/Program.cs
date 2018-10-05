@@ -39,7 +39,7 @@ namespace ConsoleApp_querying_msgraph_with_graphsdk
                 var messages = await graphServiceClient.Me.MailFolders.Inbox.Messages.Request().GetAsync();
                 Console.WriteLine("Your last email:");
                 Console.WriteLine($"{messages.FirstOrDefault().Subject}");
-                graphServiceClient.SignOut();
+                await graphServiceClient.SignOut();
             }
 
             // Handles the exception not handled by the wrapper (for instance in the case the user cancels the authentication dialog)

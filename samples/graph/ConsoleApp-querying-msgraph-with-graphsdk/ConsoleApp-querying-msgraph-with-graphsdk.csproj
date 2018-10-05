@@ -43,8 +43,9 @@
     <Reference Include="Microsoft.Graph.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\src\msgraph-helper\bin\Debug\netstandard2.0\Microsoft.Graph.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Identity.Client, Version=1.1.4.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Microsoft.Identity.Client.1.1.4-preview0002\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+    <Reference Include="Microsoft.Identity.Client, Version=2.1.0.0, Culture=neutral, PublicKeyToken=0a613f4dd989e8ae, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Identity.Client.2.1.0-preview\lib\net45\Microsoft.Identity.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Identity.Client.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\src\msal-dotnet-helper\bin\Debug\net45\Microsoft.Identity.Client.Helpers.dll</HintPath>
@@ -87,7 +88,9 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
